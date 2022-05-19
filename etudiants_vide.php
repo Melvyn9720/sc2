@@ -14,6 +14,21 @@
 
     function addEtudiant() {
         global $conn;
+          function addEtudiant() {
+        global $conn;
+        $etudiant = json_decode(file_get_contents("php://input"));
+        foreach($etudiant as $key => $value) {
+            // echo $key." ".$value."\n";
+            switch($key) {
+                case "nom" : $nom = $value;         break;
+                case "prenom" : $prenom = $value;   break;
+                case "code" : $code = $value;  break;
+            }
+        }
+        $requete = "INSERT INTO `etudiant` (`idEtudiant`, `nom`, `prenom`, `codeBadge`) 
+            VALUES (NULL, '".$nom."', '".$prenom."', '".$code."');";
+        // echo $requete;
+        $result = mysqli_query($conn, $requete);
     }
 
     function updateEtudiant($id) {
